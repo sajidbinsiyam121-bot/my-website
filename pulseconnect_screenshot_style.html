@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PulseConnect — Discover Community</title>
+<style>
+:root{--bg:#070817;--panel:#111429;--panel2:#171b35;--line:#292e50;--muted:#9da5c5;--white:#f7f8ff;--pink:#ff3f91;--cyan:#21d9ef;--purple:#9a63ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 12% 25%,#40102e 0,transparent 28%),radial-gradient(ellipse at 88% 55%,#063d53 0,transparent 30%),var(--bg);color:var(--white);font:14px/1.45 Arial,Helvetica,sans-serif;min-height:100vh}
+.wrap{max-width:1120px;margin:auto;padding:20px 22px 50px}
+header{display:flex;align-items:center;gap:20px;justify-content:space-between;padding:8px 0 22px;border-bottom:1px solid #242844}
+.brand{font-weight:800;font-size:20px;letter-spacing:-.5px;white-space:nowrap}.brand b{color:var(--cyan)}.brand i{display:inline-block;width:28px;height:8px;border-radius:8px;background:var(--cyan);margin-left:8px}
+nav{display:flex;gap:8px;flex-wrap:wrap}nav a,.pill{color:#cbd0e8;text-decoration:none;background:#171b32;border:1px solid #292e4d;padding:9px 14px;border-radius:12px;font-size:12px}nav a.active{background:linear-gradient(100deg,var(--pink),#bd4dff);border:0;color:white}
+.location{margin-left:auto;color:#cbd0e8;background:#171b32;border:1px solid #292e4d;padding:9px 13px;border-radius:12px;font-size:12px}
+.grid{display:grid;grid-template-columns:1.05fr 1fr;gap:22px;margin-top:24px}
+.card{background:linear-gradient(145deg,rgba(24,28,54,.96),rgba(12,16,34,.96));border:1px solid var(--line);border-radius:22px;box-shadow:0 18px 55px #0005;overflow:hidden}
+.profile{min-height:400px;position:relative;display:flex;align-items:flex-end;padding:22px;background:linear-gradient(180deg,transparent 40%,#080a18 98%),radial-gradient(circle at 50% 25%,#9d8bc2,#454b86 48%,#1c2148 80%)}
+.profile:before{content:"";position:absolute;inset:0;background:linear-gradient(130deg,#ff62ae22,#20d9ef22)}
+.avatar{position:absolute;top:35px;left:50%;transform:translateX(-50%);width:210px;height:235px;border-radius:46% 46% 18px 18px;background:linear-gradient(145deg,#b7b5d9,#6e77b8);display:flex;align-items:center;justify-content:center;font-size:105px;box-shadow:0 15px 40px #05061788;border:1px solid #ffffff35}
+.online,.tag{position:absolute;top:18px;left:18px;background:#102b2b;color:#8fffe0;border:1px solid #1d6258;border-radius:30px;padding:6px 11px;font-size:11px;z-index:1}
+.badge{position:absolute;right:18px;top:18px;background:#ffca42;color:#241900;padding:6px 10px;border-radius:30px;font-size:11px;font-weight:bold;z-index:1}
+.profile-copy{position:relative;z-index:1}.profile h1{font-size:29px;margin:0 0 3px}.profile p{margin:8px 0;color:#d9dced;max-width:450px}.sub{color:#ff9ec7;font-size:12px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}.tags span{background:#252a49;border:1px solid #41486e;border-radius:20px;padding:5px 10px;font-size:11px}
+.right{padding:18px}.spotlight{display:flex;align-items:center;gap:14px;background:#0c1023;border:1px solid #303657;border-radius:15px;padding:14px;margin-bottom:18px}.play{width:42px;height:42px;display:grid;place-items:center;background:linear-gradient(140deg,var(--cyan),#3285ff);border-radius:12px;font-size:19px;color:#06111d}.spotlight strong{display:block;font-size:13px}.spotlight small{color:var(--muted)}
+.section-title{font-size:11px;color:#aab1d0;font-weight:bold;letter-spacing:.7px;margin:17px 0 10px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.tile{min-height:112px;border:1px solid #343957;border-radius:15px;background:#191d38;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:10px}.tile:nth-child(2){background:linear-gradient(145deg,#49300d,#29203a)}.tile:nth-child(3){background:linear-gradient(145deg,#392064,#202043)}.tile:nth-child(4){background:linear-gradient(145deg,#54204b,#28203f)}.tile .ico{font-size:24px;margin-bottom:8px}.tile b{font-size:12px}.tile small{font-size:10px;color:#b7bed8;margin-top:4px}
+.safe{margin-top:17px;padding:12px 14px;border-radius:12px;background:#102b2d;border:1px solid #23545b;color:#b7eee8;font-size:11px}
+.reviews{margin-top:22px;padding:20px}.reviews-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.reviews h2{font-size:19px;margin:2px 0}.reviews small{color:var(--muted)}.add{border:0;border-radius:12px;background:linear-gradient(100deg,var(--pink),#a34cff);color:white;padding:10px 15px;font-weight:bold}
+.review{display:flex;align-items:center;gap:12px;background:#0d1228;border:1px solid #2c3354;border-radius:14px;padding:12px;margin-top:10px}.initial{width:34px;height:34px;display:grid;place-items:center;border-radius:50%;background:#12536a;color:#a8f6ff;font-weight:bold}.review strong{font-size:12px}.stars{margin-left:auto;color:#ffd34f;letter-spacing:2px}
+footer{text-align:center;color:#777f9f;font-size:10px;padding:20px}
+@media(max-width:760px){.wrap{padding:12px}.grid{grid-template-columns:1fr}.profile{min-height:390px}.avatar{width:185px;height:210px;top:34px}.tiles{grid-template-columns:repeat(2,1fr)}header{flex-wrap:wrap}.location{margin-left:0}nav{order:3;width:100%}.reviews{padding:14px}.reviews-head{align-items:flex-start}.reviews h2{font-size:16px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">✦ Pulse<b>Connect</b><i></i></div>
+  <div class="location">📍 All Communities ▾</div>
+  <nav><a class="active" href="#discover">Discover</a><a href="#groups">Groups</a><a href="#events">Events</a><a href="#profile">My profile</a></nav>
+</header>
+<main>
+<div class="grid" id="discover">
+  <section class="card profile" id="profile">
+    <span class="online">● Online community member</span><span class="badge">✦ Featured</span>
+    <div class="avatar" aria-label="Profile image placeholder">👩🏻‍💻</div>
+    <div class="profile-copy">
+      <div class="sub">✦ COMMUNITY MEMBER</div>
+      <h1>Alex</h1>
+      <div class="sub">📍 Austin, TX · Music & creative community</div>
+      <p>“I enjoy discovering new music, sharing creative ideas, and meeting people who love art and technology.”</p>
+      <div class="tags"><span>🎧 Music</span><span>🎨 Art</span><span>💬 Conversation</span><span>✈️ Travel</span></div>
+    </div>
+  </section>
+  <section class="card right">
+    <div class="spotlight"><div class="play">▶</div><div><strong>Community spotlight</strong><small>Discover today’s featured topic and join a friendly discussion.</small></div><div style="margin-left:auto;color:var(--cyan);font-size:24px">▥</div></div>
+    <div class="section-title">EXPLORE THE COMMUNITY</div>
+    <div class="tiles" id="groups">
+      <div class="tile"><div class="ico">✦</div><b>Discover</b><small>Find new topics</small></div>
+      <div class="tile"><div class="ico">⚡</div><b>Join Groups</b><small>Shared interests</small></div>
+      <div class="tile"><div class="ico">▣</div><b>Messages</b><small>Friendly conversations</small></div>
+      <div class="tile" id="events"><div class="ico">📅</div><b>Events</b><small>Meet at public events</small></div>
+    </div>
+    <div class="safe">🔒 Stay safe: Keep personal information private. Report suspicious behavior and connect through public community spaces.</div>
+  </section>
+</div>
+<section class="card reviews">
+  <div class="reviews-head"><div><small>COMMUNITY FEEDBACK</small><h2>Recent Member Reviews</h2></div><button class="add" onclick="alert('Demo button — connect a backend to publish reviews.')">＋ Add a review</button></div>
+  <div class="review"><div class="initial">H</div><strong>Hannah K. · Austin, TX</strong><span class="stars">★★★★★</span></div>
+  <div class="review"><div class="initial">J</div><strong>Jordan M. · Dallas, TX</strong><span class="stars">★★★★★</span></div>
+  <div class="review"><div class="initial">S</div><strong>Sam R. · Houston, TX</strong><span class="stars">★★★★★</span></div>
+</section>
+</main>
+<footer>© 2026 PulseConnect · Community demo template · Sample profiles and reviews are fictional.</footer>
+</div>
+</body>
+</html>

@@ -1,98 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#080d18">
 <title>MovieVerse | South Indian Cinema</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#080d18;color:#f7f8fc;font-family:Arial,Helvetica,sans-serif}
-header{position:sticky;top:0;z-index:5;background:#10192aee;border-bottom:1px solid #2b3952;padding:16px;text-align:center}
-header h1{margin:0;color:#ffb52e;letter-spacing:1px}header p{margin:5px 0 0;color:#b6c0d1;font-size:13px}
-main{max-width:1120px;margin:auto;padding:16px}
-.hero{padding:36px 22px;border-radius:18px;background:linear-gradient(120deg,#36291d,#14243d);margin:12px 0 24px}
-.hero h2{font-size:clamp(27px,5vw,42px);margin:0 0 10px}.hero p{color:#d2d8e3;line-height:1.6;max-width:650px}
-.btn{display:inline-block;text-decoration:none;background:#ffb52e;color:#1c160b;font-weight:bold;padding:11px 16px;border-radius:8px}
-.search{width:100%;padding:13px;border:1px solid #34435d;border-radius:9px;background:#131e31;color:white;font-size:16px;margin:14px 0}
-.filters{display:flex;gap:8px;overflow:auto;margin:8px 0 22px}.filters button{white-space:nowrap;border:1px solid #43516a;border-radius:25px;background:#172238;color:#e9edf5;padding:9px 15px;cursor:pointer}.filters button.active{border-color:#ffb52e;color:#ffcf70}
-h2.section{font-size:22px;margin:20px 0 14px}
-.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-.card{background:#141f31;border:1px solid #2b3952;border-radius:13px;overflow:hidden;min-width:0}
-.poster{width:100%;aspect-ratio:2/2.8;display:block;object-fit:cover;background:#26344a}
-.info{padding:12px}.info h3{margin:0 0 6px;font-size:16px}.info p{margin:0 0 11px;color:#b6c0d1;font-size:12px;min-height:30px;line-height:1.45}
-.trailer,.sponsor{display:block;text-align:center;text-decoration:none;padding:10px 8px;border-radius:7px;font-size:12px;font-weight:bold;margin-top:8px}
-.trailer{background:#314765;color:white;border:1px solid #4a6384}.sponsor{background:#ffb52e;color:#201707}
-.small{font-size:10px;color:#aeb8c8;text-align:center;margin-top:6px}
-.sponsor-box{margin:26px 0;padding:18px;border:1px solid #73572b;border-radius:13px;background:linear-gradient(100deg,#342817,#172238);display:flex;justify-content:space-between;align-items:center;gap:12px}
-.sponsor-box p{color:#c4cbd7;font-size:12px;margin:5px 0 0}
-footer{text-align:center;color:#aeb8c8;font-size:12px;line-height:1.6;padding:24px;border-top:1px solid #293650;margin-top:30px}
-@media(max-width:800px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:540px){main{padding:12px}.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.hero{padding:27px 17px}.poster{aspect-ratio:2/2.75}.sponsor-box{align-items:flex-start;flex-direction:column}}
+:root{--bg:#090d18;--panel:#141c2d;--muted:#aab5ca;--accent:#ffb703;--text:#f7f8fc}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#101a31,#090d18 55%);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+header{padding:28px 6%;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;border-bottom:1px solid #ffffff18}
+.logo{font-size:25px;font-weight:800;letter-spacing:.5px}.logo span{color:var(--accent)}
+nav a{color:#dce4f5;text-decoration:none;margin-left:18px;font-size:14px}
+.hero{padding:56px 6% 38px;max-width:1200px;margin:auto}.eyebrow{color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:2px;font-size:12px}
+h1{font-size:clamp(34px,6vw,58px);line-height:1.05;margin:12px 0}.hero p{color:var(--muted);max-width:620px;line-height:1.65}
+.search{display:flex;gap:10px;margin-top:24px;max-width:560px}.search input{flex:1;min-width:0;padding:14px 16px;border-radius:10px;border:1px solid #ffffff24;background:#111a2b;color:white;font-size:15px}
+main{max-width:1200px;margin:auto;padding:0 6% 60px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:12px;margin:18px 0}.section-head h2{margin:0;font-size:25px}.section-head p{margin:0;color:var(--muted);font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px}.movie{overflow:hidden;background:var(--panel);border:1px solid #ffffff12;border-radius:15px;box-shadow:0 10px 30px #0003}
+.poster{height:245px;display:flex;align-items:end;padding:18px;background:linear-gradient(145deg,#263d68,#8b3b36);position:relative}
+.poster:after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,#070b15d9,transparent 75%)}
+.poster strong{position:relative;z-index:1;font-size:21px;text-shadow:0 2px 8px #000}
+.movie:nth-child(2) .poster{background:linear-gradient(145deg,#4d3324,#c58b36)}
+.movie:nth-child(3) .poster{background:linear-gradient(145deg,#183e45,#b46b34)}
+.movie:nth-child(4) .poster{background:linear-gradient(145deg,#39254d,#bd5262)}
+.movie:nth-child(5) .poster{background:linear-gradient(145deg,#273a57,#9d7841)}
+.movie:nth-child(6) .poster{background:linear-gradient(145deg,#1e4c3b,#a5a14c)}
+.movie:nth-child(7) .poster{background:linear-gradient(145deg,#292d48,#9d4d36)}
+.movie:nth-child(8) .poster{background:linear-gradient(145deg,#3e3b31,#9b7650)}
+.info{padding:15px}.info h3{margin:0 0 7px;font-size:18px}.meta{color:var(--muted);font-size:12px;margin-bottom:13px}
+.action{display:block;text-align:center;text-decoration:none;background:var(--accent);color:#171717;font-weight:800;padding:11px;border-radius:9px}
+.notice{color:#aebbd0;font-size:12px;line-height:1.5;margin-top:20px}.empty{display:none;color:var(--muted);padding:25px 0}
+footer{text-align:center;padding:24px;color:#8e9ab0;border-top:1px solid #ffffff18;font-size:12px}
+@media(max-width:600px){header{padding:20px 5%}nav a{margin-left:10px}.hero{padding:42px 5% 30px}main{padding:0 5% 45px}.poster{height:220px}}
 </style>
 </head>
 <body>
-<header><h1>🎬 MOVIEVERSE</h1><p>South Indian Cinema Collection</p></header>
-<main>
-<section class="hero">
-<h2>Discover Amazing Movies</h2>
-<p>Explore popular Tamil, Telugu, Kannada and Malayalam cinema. Browse movie posters and open official trailer sources.</p>
-<a class="btn" href="#movies">Explore Movies</a>
+<header>
+  <div class="logo">MOVIE<span>VERSE</span></div>
+  <nav><a href="#home">Home</a><a href="#movies">Movies</a></nav>
+</header>
+<section class="hero" id="home">
+  <div class="eyebrow">South Indian Cinema</div>
+  <h1>Discover Movies.<br>Explore Stories.</h1>
+  <p>Explore a collection of popular South Indian movie titles in one place.</p>
+  <div class="search"><input id="search" type="search" placeholder="Search movies..." aria-label="Search movies"></div>
 </section>
-<h2 class="section" id="movies">🔥 Popular South Indian Movies</h2>
-<input id="search" class="search" type="search" placeholder="Search movies..." aria-label="Search movies">
-<div class="filters">
-<button class="active" data-cat="All">All Movies</button>
-<button data-cat="Telugu">Telugu</button>
-<button data-cat="Tamil">Tamil</button>
-<button data-cat="Kannada">Kannada</button>
-<button data-cat="Malayalam">Malayalam</button>
-</div>
-<div class="grid" id="grid">
-<article class="card" data-lang="Telugu">
-<img class="poster" src="https://assetscdn1.paytm.com/images/cinema/Pushpa-608x800-9ca6a320-5cc2-11ec-8225-9d59773e467e.jpg?format=webp" alt="Pushpa The Rise poster" loading="lazy">
-<div class="info"><h3>Pushpa: The Rise</h3><p>Telugu · Action Drama</p><a class="trailer" href="https://www.youtube.com/results?search_query=Pushpa+The+Rise+official+trailer+Mythri+Movie+Makers" target="_blank" rel="noopener noreferrer">▶ Official Trailer ↗</a><a class="sponsor" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0" target="_blank" rel="noopener noreferrer">Sponsored Link ↗</a></div>
-</article>
-<article class="card" data-lang="Kannada">
-<img class="poster" src="https://www.kerala9.com/wp-content/uploads/2022/04/kgf-chapter-2-photos-hd-011.jpg" alt="KGF Chapter 2 poster" loading="lazy">
-<div class="info"><h3>KGF: Chapter 2</h3><p>Kannada · Action Drama</p><a class="trailer" href="https://www.youtube.com/results?search_query=KGF+Chapter+2+official+trailer+Hombale+Films" target="_blank" rel="noopener noreferrer">▶ Official Trailer ↗</a><a class="sponsor" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0" target="_blank" rel="noopener noreferrer">Sponsored Link ↗</a></div>
-</article>
-<article class="card" data-lang="Telugu">
-<img class="poster" src="https://m.media-amazon.com/images/M/MV5BODUwNDNjYzctODUxNy00ZTA2LWIyYTEtMDc5Y2E5ZjBmNTMzXkEyXkFqcGdeQXVyODE5NzE3OTE%40._V1_FMjpg_UX1000_.jpg" alt="RRR poster" loading="lazy">
-<div class="info"><h3>RRR</h3><p>Telugu · Period Action Drama</p><a class="trailer" href="https://www.youtube.com/results?search_query=RRR+official+trailer+DVV+Entertainment" target="_blank" rel="noopener noreferrer">▶ Official Trailer ↗</a><a class="sponsor" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0" target="_blank" rel="noopener noreferrer">Sponsored Link ↗</a></div>
-</article>
-<article class="card" data-lang="Tamil">
-<img class="poster" src="https://images.indianexpress.com/2023/10/Vijay-1.jpg" alt="Leo movie poster" loading="lazy">
-<div class="info"><h3>Leo</h3><p>Tamil · Action Thriller</p><a class="trailer" href="https://www.youtube.com/results?search_query=Leo+official+trailer+Seven+Screen+Studio" target="_blank" rel="noopener noreferrer">▶ Official Trailer ↗</a><a class="sponsor" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0" target="_blank" rel="noopener noreferrer">Sponsored Link ↗</a></div>
-</article>
-<article class="card" data-lang="Telugu">
-<img class="poster" src="https://m.media-amazon.com/images/M/MV5BNDA4MWM5MWEtMjFlNy00YjI5LTk2OGMtYTFlZmRkM2NhN2E0XkEyXkFqcGc%40._V1_.jpg" alt="Baahubali 2 poster" loading="lazy">
-<div class="info"><h3>Baahubali 2</h3><p>Telugu · Fantasy Action</p><a class="trailer" href="https://www.youtube.com/results?search_query=Baahubali+2+official+trailer+Arka+Mediaworks" target="_blank" rel="noopener noreferrer">▶ Official Trailer ↗</a><a class="sponsor" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0" target="_blank" rel="noopener noreferrer">Sponsored Link ↗</a></div>
-</article>
-<article class="card" data-lang="Kannada">
-<img class="poster" src="https://m.media-amazon.com/images/M/MV5BNjQyNGI5OWEtZjI1Yy00NDVjLWE4MTAtMzRlNzU1NzM2OGVkXkEyXkFqcGdeQXVyMTA1NzEzOTU1._V1_.jpg" alt="Kantara poster" loading="lazy">
-<div class="info"><h3>Kantara</h3><p>Kannada · Drama</p><a class="trailer" href="https://www.youtube.com/results?search_query=Kantara+official+trailer+Hombale+Films" target="_blank" rel="noopener noreferrer">▶ Official Trailer ↗</a><a class="sponsor" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0" target="_blank" rel="noopener noreferrer">Sponsored Link ↗</a></div>
-</article>
-<article class="card" data-lang="Tamil">
-<img class="poster" src="https://www.behindwoods.com/uploads/62e27170ce3c0.jpeg" alt="Vikram movie poster" loading="lazy">
-<div class="info"><h3>Vikram</h3><p>Tamil · Action Thriller</p><a class="trailer" href="https://www.youtube.com/results?search_query=Vikram+2022+official+trailer+Sony+Music+South" target="_blank" rel="noopener noreferrer">▶ Official Trailer ↗</a><a class="sponsor" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0" target="_blank" rel="noopener noreferrer">Sponsored Link ↗</a></div>
-</article>
-<article class="card" data-lang="Malayalam">
-<img class="poster" src="https://m.media-amazon.com/images/M/MV5BZDZkM2U0Y2ItMTAwOC00MTc3LWI5NTQtZTk3Yjc2NGI5MWYzXkEyXkFqcGc%40._V1_FMjpg_UX1000_.jpg" alt="Drishyam Malayalam poster" loading="lazy">
-<div class="info"><h3>Drishyam</h3><p>Malayalam · Mystery Thriller</p><a class="trailer" href="https://www.youtube.com/results?search_query=Drishyam+2013+official+trailer+Aashirvad+Cinemas" target="_blank" rel="noopener noreferrer">▶ Official Trailer ↗</a><a class="sponsor" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0" target="_blank" rel="noopener noreferrer">Sponsored Link ↗</a></div>
-</article>
-</div>
-<section class="sponsor-box">
-<div><strong>Sponsored Destination</strong><p>This link opens an external third-party website.</p></div>
-<a class="btn" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0" target="_blank" rel="noopener noreferrer">Visit Sponsored Link ↗</a>
-</section>
+<main id="movies">
+  <div class="section-head"><h2>Popular Movies</h2><p>Explore the collection</p></div>
+  <div class="grid" id="grid">
+    <article class="movie"><div class="poster"><strong>Pushpa: The Rise</strong></div><div class="info"><h3>Pushpa: The Rise</h3><div class="meta">Action · Telugu</div><a class="action" target="_blank" rel="noopener noreferrer" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0">Open Link</a></div></article>
+    <article class="movie"><div class="poster"><strong>KGF Chapter 2</strong></div><div class="info"><h3>KGF Chapter 2</h3><div class="meta">Action · Kannada</div><a class="action" target="_blank" rel="noopener noreferrer" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0">Open Link</a></div></article>
+    <article class="movie"><div class="poster"><strong>RRR</strong></div><div class="info"><h3>RRR</h3><div class="meta">Action · Telugu</div><a class="action" target="_blank" rel="noopener noreferrer" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0">Open Link</a></div></article>
+    <article class="movie"><div class="poster"><strong>Leo</strong></div><div class="info"><h3>Leo</h3><div class="meta">Action · Tamil</div><a class="action" target="_blank" rel="noopener noreferrer" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0">Open Link</a></div></article>
+    <article class="movie"><div class="poster"><strong>Baahubali 2</strong></div><div class="info"><h3>Baahubali 2</h3><div class="meta">Epic · Telugu</div><a class="action" target="_blank" rel="noopener noreferrer" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0">Open Link</a></div></article>
+    <article class="movie"><div class="poster"><strong>Kantara</strong></div><div class="info"><h3>Kantara</h3><div class="meta">Drama · Kannada</div><a class="action" target="_blank" rel="noopener noreferrer" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0">Open Link</a></div></article>
+    <article class="movie"><div class="poster"><strong>Vikram</strong></div><div class="info"><h3>Vikram</h3><div class="meta">Thriller · Tamil</div><a class="action" target="_blank" rel="noopener noreferrer" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0">Open Link</a></div></article>
+    <article class="movie"><div class="poster"><strong>Drishyam</strong></div><div class="info"><h3>Drishyam</h3><div class="meta">Thriller · Malayalam</div><a class="action" target="_blank" rel="noopener noreferrer" href="https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0">Open Link</a></div></article>
+  </div>
+  <div class="empty" id="empty">No movies found.</div>
+  <p class="notice">Note: “Open Link” buttons open an external website. This page does not host or stream the movies. Only publish or link to content you have permission to share.</p>
 </main>
-<footer>© 2026 MovieVerse · Movie posters are displayed from third-party image hosts and may be copyrighted. Obtain permission before commercial use.<br>MovieVerse does not host movie streams or downloads. Trailer buttons open YouTube search results.</footer>
+<footer>© 2026 MovieVerse · South Indian Movie Collection</footer>
 <script>
-const search=document.getElementById('search');
-let active='All';
-function filter(){const q=search.value.toLowerCase();let shown=0;document.querySelectorAll('.card').forEach(card=>{const ok=(active==='All'||card.dataset.lang===active)&&card.innerText.toLowerCase().includes(q);card.style.display=ok?'':'none';if(ok)shown++});}
-search.addEventListener('input',filter);
-document.querySelectorAll('.filters button').forEach(btn=>btn.addEventListener('click',()=>{active=btn.dataset.cat;document.querySelectorAll('.filters button').forEach(x=>x.classList.toggle('active',x===btn));filter()}));
+const search=document.getElementById('search'), cards=[...document.querySelectorAll('.movie')], empty=document.getElementById('empty');
+search.addEventListener('input',()=>{const q=search.value.trim().toLowerCase();let count=0;cards.forEach(card=>{const show=card.innerText.toLowerCase().includes(q);card.style.display=show?'':'none';if(show)count++});empty.style.display=count?'none':'block'});
 </script>
 </body>
-  </html>
+</html>

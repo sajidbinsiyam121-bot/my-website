@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090d18">
+<title>MovieVerse — Latest & Trending Movies</title>
+<style>
+:root{--bg:#090d18;--panel:#121a2b;--panel2:#182238;--text:#f5f7ff;--muted:#aab4ca;--accent:#ffb000;--line:#27334b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif}
+header{position:sticky;top:0;z-index:5;background:#090d18ed;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+.nav{max-width:1100px;margin:auto;padding:15px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:22px;font-weight:900;letter-spacing:.3px}.logo span{color:var(--accent)}
+nav a{color:var(--muted);text-decoration:none;margin-left:16px;font-size:14px}
+.wrap{max-width:1100px;margin:auto;padding:24px 18px}
+.hero{padding:34px 26px;border:1px solid var(--line);border-radius:22px;background:radial-gradient(circle at 85% 10%,#533b1e 0,transparent 34%),linear-gradient(120deg,#17233a,#101625);margin-bottom:28px}
+.hero small{color:var(--accent);font-weight:800;text-transform:uppercase;letter-spacing:1.5px}
+h1{font-size:clamp(28px,5vw,46px);line-height:1.12;margin:10px 0}
+.hero p{color:var(--muted);max-width:600px;margin-bottom:0}
+.tools{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}
+input,textarea{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:11px;padding:12px 14px;font:inherit;outline:none}
+#search{flex:1;min-width:210px}
+h2{font-size:22px;margin:26px 0 15px}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px}
+.movie{overflow:hidden;background:var(--panel);border:1px solid var(--line);border-radius:16px;transition:.2s}
+.movie:hover{transform:translateY(-3px);border-color:#65728e}
+.poster{width:100%;aspect-ratio:2/3;object-fit:cover;background:#202b40;display:block}
+.info{padding:13px}.info h3{font-size:16px;margin:0 0 7px}.info p{font-size:13px;color:var(--muted);min-height:38px;margin:0 0 13px}
+.watch{display:block;text-align:center;background:var(--accent);color:#17120a;font-weight:900;text-decoration:none;padding:10px;border-radius:9px}
+.empty{color:var(--muted);padding:20px;background:var(--panel);border-radius:12px;display:none}
+.admin{margin-top:35px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px}
+.admin summary{cursor:pointer;font-weight:800}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:15px}
+.formgrid textarea{grid-column:1/-1;min-height:80px}.formgrid button{border:0;border-radius:10px;padding:12px;background:#344563;color:white;font-weight:800;cursor:pointer}
+.note{color:var(--muted);font-size:12px;line-height:1.6}
+footer{text-align:center;color:var(--muted);padding:30px 15px;border-top:1px solid var(--line);margin-top:35px;font-size:13px}
+@media(max-width:800px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:560px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.wrap{padding:18px 12px}.hero{padding:25px 18px}.formgrid{grid-template-columns:1fr}.formgrid textarea{grid-column:auto}nav a{margin-left:8px;font-size:12px}.logo{font-size:19px}}
+</style>
+</head>
+<body>
+<header><div class="nav"><div class="logo">MOVIE<span>VERSE</span></div><nav><a href="#home">Home</a><a href="#movies">Movies</a><a href="#admin">Admin</a></nav></div></header>
+<main class="wrap" id="home">
+<section class="hero"><small>Welcome to MovieVerse</small><h1>Discover Your Next<br>Favorite Movie</h1><p>Explore the latest and trending movie collections. Choose a movie below to continue.</p></section>
+<div class="tools"><input id="search" type="search" placeholder="মুভির নাম লিখে খুঁজুন..." aria-label="Search movies"></div>
+<section id="movies"><h2>🔥 Trending Movies</h2><div class="grid" id="grid"></div><div class="empty" id="empty">কোনো মুভি পাওয়া যায়নি।</div></section>
+<section class="admin" id="admin"><details><summary>＋ Add a movie (এই ব্রাউজারে)</summary>
+<div class="formgrid">
+<input id="title" placeholder="Movie title">
+<input id="poster" placeholder="Poster image URL (https://...)">
+<textarea id="desc" placeholder="Short description"></textarea>
+<button id="add">Add Movie</button>
+</div>
+<p class="note">নোট: এই ফর্মে যোগ করা মুভি শুধু এই ব্রাউজারের local storage-এ থাকবে। GitHub Pages-এ সবার জন্য স্থায়ীভাবে মুভি যোগ/আপলোড করতে আলাদা database ও admin backend লাগবে। এখানে ভিডিও ফাইল আপলোড হয় না।</p>
+</details></section>
+</main>
+<footer>© 2026 MovieVerse. Use only movie posters and content you have permission to publish.</footer>
+<script>
+const DIRECT_LINK = "https://asiafilm.org/4/dac4d636232ca7f7c8e7d0d1de0af4c0";
+const defaults = [
+ {title:"Featured Movie",desc:"Add your own movie title and description from the admin section.",poster:"https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80"},
+ {title:"Trending Collection",desc:"Discover more movies in this collection.",poster:"https://images.unsplash.com/photo-1440404653325-ab127d49abc1?auto=format&fit=crop&w=600&q=80"},
+ {title:"Movie Spotlight",desc:"Update this sample with your own movie details.",poster:"https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=600&q=80"},
+ {title:"New Releases",desc:"Add a poster image URL and description.",poster:"https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=600&q=80"}
+];
+let movies;
+try{movies=JSON.parse(localStorage.getItem("movieverse_movies"))||defaults}catch(e){movies=defaults}
+const grid=document.getElementById("grid"), empty=document.getElementById("empty");
+function render(filter=""){
+ grid.innerHTML="";
+ const shown=movies.filter(m=>m.title.toLowerCase().includes(filter.toLowerCase()));
+ shown.forEach(m=>{
+  const card=document.createElement("article");card.className="movie";
+  const img=document.createElement("img");img.className="poster";img.src=m.poster;img.alt=m.title;img.loading="lazy";img.onerror=()=>{img.src="https://placehold.co/600x900/182238/ffffff?text=Movie+Poster"};
+  const info=document.createElement("div");info.className="info";
+  const h=document.createElement("h3");h.textContent=m.title;
+  const p=document.createElement("p");p.textContent=m.desc;
+  const a=document.createElement("a");a.className="watch";a.href=DIRECT_LINK;a.target="_blank";a.rel="noopener noreferrer";a.textContent="▶ Watch Now";
+  info.append(h,p,a);card.append(img,info);grid.append(card);
+ });
+ empty.style.display=shown.length?"none":"block";
+}
+document.getElementById("search").addEventListener("input",e=>render(e.target.value));
+document.getElementById("add").addEventListener("click",()=>{
+ const title=document.getElementById("title").value.trim(),poster=document.getElementById("poster").value.trim(),desc=document.getElementById("desc").value.trim();
+ if(!title||!poster){alert("মুভির নাম এবং পোস্টার URL দিন।");return}
+ if(!/^https:\/\/.+/i.test(poster)){alert("Poster URL অবশ্যই https:// দিয়ে শুরু হতে হবে।");return}
+ movies.unshift({title,poster,desc});localStorage.setItem("movieverse_movies",JSON.stringify(movies));
+ document.getElementById("title").value="";document.getElementById("poster").value="";document.getElementById("desc").value="";render();alert("এই ব্রাউজারে মুভি যোগ হয়েছে।");
+});
+render();
+</script>
+</body>
+</html>
